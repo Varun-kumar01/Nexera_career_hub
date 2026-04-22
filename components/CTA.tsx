@@ -262,14 +262,18 @@ export default function CTA() {
                 onClick={(e) => {
                   e.preventDefault();
 
-                  const form = e.currentTarget.closest("form");
+                  const form = e.currentTarget.closest("form") as HTMLFormElement | null;
+
+                  if (!form) return; // safety check
+
                   const inputs = form.querySelectorAll("input");
+                  // const inputs = form.querySelectorAll("input");
 
                   const data = {
-                    name: inputs[0].value.trim(),
-                    email: inputs[1].value.trim(),
-                    branch: inputs[3].value.trim(),
-                    experience: inputs[4].value.trim(),
+                    name: inputs[0]?.value.trim(),
+                    email: inputs[1]?.value.trim(),
+                    branch: inputs[2]?.value.trim(),
+                    experience: inputs[3]?.value.trim(),
                   };
 
                   // ✅ VALIDATION
