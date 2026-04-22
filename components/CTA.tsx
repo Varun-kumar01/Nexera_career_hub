@@ -124,7 +124,7 @@ export default function CTA() {
                     Experience: ${data.experience || "-"}`
                   );
 
-                  const phoneNumber = "918639315520";
+                  const phoneNumber = "919553059468";
 
                   window.open(
                     `https://wa.me/${phoneNumber}?text=${message}`,
