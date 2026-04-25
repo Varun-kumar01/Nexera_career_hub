@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+    <section id="home" className="relative pt-32 pb-20 px-6 overflow-hidden">
 
       {/* Background Glow */}
       <div className="absolute inset-0 -z-10">
@@ -19,12 +19,17 @@ export default function Hero() {
         {/* LEFT */}
         <div className="text-center md:text-left">
 
+          {/* BRAND LABEL */}
+          <p className="text-5xl md:text-8xl text-primary font-bold tracking-wide text-mauve-700 mb-10">
+            Nexera Career Hub
+          </p>
+
           {/* HEADING */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mt-2 text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-textMain"
+            className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-textMain"
           >
             Leave the <span className="text-rose-900">'Apply'</span> button to us.{" "}
             <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
@@ -32,10 +37,7 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* BRAND LABEL */}
-          <p className="text-md text-primary font-bold tracking-wide text-gray-600">
-            Nexera Career Hub
-          </p>
+          
 
           {/* SUBTEXT */}
           <motion.p

@@ -143,10 +143,10 @@ export default function Trust() {
 
           <div>
             <p className="text-3xl md:text-4xl font-bold text-rose-900">
-              <Counter target={3000} start={isInView} />
+              <Counter target={80} start={isInView} />
             </p>
             <p className="text-lg text-textSoft mt-2 font-semibold">
-              Applications Submitted
+              Daily Applications
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export default function Trust() {
               <Counter target={80} start={isInView} />
             </p>
             <p className="text-lg text-textSoft mt-2 font-semibold">
-              Active Clients
+              Graduates
             </p>
           </div>
 
