@@ -1,142 +1,183 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, BriefcaseBusiness, FileText, MessageSquareText, Sparkles } from "lucide-react";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
+
+const journey = [
+  { title: "Candidate Profile", note: "Clarify goals and strengths" },
+  { title: "Job Match", note: "Find roles that fit" },
+  { title: "Application", note: "Track your next steps" },
+  { title: "Response", note: "Stay ready for outreach" },
+  { title: "Interview", note: "Prepare with confidence" },
+];
 
 export default function Hero() {
+  const { scrollYProgress } = useScroll();
+  const visualY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+
   return (
-    <section id="home" className="relative pt-32 pb-20 px-6 overflow-hidden">
+    <section id="home" className="relative overflow-hidden px-4 pb-18 pt-16 sm:pb-20 sm:pt-20">
+      <div className="absolute inset-x-0 top-0 -z-10 h-[420px] bg-[radial-gradient(circle_at_top_left,_rgba(99,91,255,0.16),_transparent_40%),radial-gradient(circle_at_top_right,_rgba(99,91,255,0.12),_transparent_30%)]" />
 
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-orange-300/20 rounded-full blur-3xl" />
-        <div className="absolute top-40 right-10 w-72 h-72 bg-rose-300/20 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-        {/* LEFT */}
-        <div className="text-center md:text-left">
-
-          {/* BRAND LABEL */}
-          <p className="text-5xl md:text-8xl text-primary font-bold tracking-wide text-mauve-700 mb-10">
-            Nexera Career Hub
-          </p>
-
-          {/* HEADING */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-textMain"
-          >
-            Leave the <span className="text-rose-900">'Apply'</span> button to us.{" "}
-            <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-              {/* You Focus on Interviews. */}
-            </span>
-          </motion.h1>
-
-          
-
-          {/* SUBTEXT */}
+      <div className="container grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="max-w-xl">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-textSoft text-base sm:text-lg max-w-xl mx-auto md:mx-0"
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="inline-flex rounded-full border border-[#DDE4F0] bg-white/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-[#635BFF]"
           >
-            We apply. You interview. The complete end-to-end application service built specifically for today’s graduates.
-            {/* Built for graduates navigating a competitive job market. We manage your entire job application process, from resume optimization and role targeting to daily applications and response tracking. Instead of spending hours applying, you focus on preparation while we ensure consistent, high-quality outreach on your behalf. */}
+            Career management, simplified
           </motion.p>
 
-          {/* CTA */}
-          <div className="mt-10 flex flex-wrap justify-center gap-3 md:hidden">
+          <motion.h1
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
+            className="mt-6 text-4xl font-black tracking-[-0.06em] text-[#111827] sm:text-5xl lg:text-6xl"
+          >
+            Your next opportunity shouldn&apos;t depend on how many applications you can send.
+          </motion.h1>
 
-            {[
-              "Applied Daily",
-              "Resume Optimized",
-              "Interview Focus 🚀",
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="px-4 py-2 rounded-full bg-white/70 backdrop-blur-md 
-                border border-gray-200 text-xs shadow-sm"
+          <motion.p
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.16, ease: "easeOut" }}
+            className="mt-6 max-w-xl text-base leading-8 text-[#475467] sm:text-lg"
+          >
+            Nexera helps students, graduates and professionals build a stronger career profile, discover relevant opportunities and manage their job search with a human team behind them.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.24, ease: "easeOut" }}
+            className="mt-8 flex flex-col gap-3 sm:flex-row"
+          >
+            <motion.a
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#635BFF] px-5 py-3.5 text-sm font-semibold text-white shadow-[0_16px_24px_rgba(99,91,255,0.18)] transition hover:bg-[#4F46E5]"
+            >
+              Start Your Career Journey <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              href={getWhatsAppUrl("Hi Nexera, I'd like to talk to the team about my career journey.")}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#DDE4F0] bg-white px-5 py-3.5 text-sm font-semibold text-[#111827] transition hover:border-[#C8D1E1]"
+            >
+              <MessageSquareText className="h-4 w-4" aria-hidden="true" />
+              Talk to Nexera
+            </motion.a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+            className="mt-8 flex flex-wrap gap-3 text-sm text-[#475467]"
+          >
+            {"Profile strategy, Targeted search, Interview readiness".split(", ").map((item) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="rounded-full border border-[#E7E9EE] bg-white px-3.5 py-2"
               >
                 {item}
-              </div>
+              </motion.div>
             ))}
-
-          </div>
-
-          <Link href="#contact">  
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative p-[2px] mt-10 rounded-full overflow-hidden group cursor-pointer"
-            >
-              {/* Animated Gradient Border */}
-              <span className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-rose-400 to-secondary animate-[spin_4s_linear_infinite]" />
-
-              {/* Inner Button */}
-              <span className="relative flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 backdrop-blur-md text-gray-800 font-medium">
-
-                {/* Noise Layer (CSS, no image) */}
-                <span className="absolute inset-0 opacity-[0.06] pointer-events-none mix-blend-overlay 
-                  [background-image:radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.3)_1px,transparent_0)]
-                  [background-size:4px_4px]" />
-
-                {/* Text */}
-                <span className="relative z-10 group-hover:text-gray-900 transition">
-                  Get Started →
-                </span>
-              </span>
-            </motion.button>
-          </Link>
-
+          </motion.div>
         </div>
 
-        {/* RIGHT VISUAL (VECTOR) */}
-     <div className="relative hidden md:flex justify-center items-center h-[420px]">
-
-      {[
-        { text: "Applied to 100+ Jobs Today", pos: "top-0 left-10", delay: 0 },
-
-        { text: "Resume Optimized ✔", pos: "top-16 right-10", delay: 0.2 },
-
-        { text: "Interview Requests Incoming 🚀", pos: "bottom-0 left-16", delay: 0.4 },
-
-        { text: "ATS Keywords Optimized", pos: "bottom-16 right-6", delay: 0.6 },
-
-        { text: "Daily Tracking Enabled 📊", pos: "top-1/2 left-0", delay: 0.8 },
-
-        { text: "Targeted Job Matching 🎯", pos: "top-1/3 right-0", delay: 1 },
-
-        { text: "Visa-Sponsored Roles Targeted", pos: "top-10 left-1/3", delay: 1.2 },
-
-        { text: "Email Monitoring Active 📬", pos: "bottom-10 right-1/4", delay: 1.4 },
-      ].map((card, i) => (
+        <div className="relative mx-auto w-full max-w-[560px]">
           <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: 1, 
-              y: [0, -8, 0] // subtle floating
-            }}
-            transition={{
-              delay: card.delay,
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className={`absolute ${card.pos} bg-white/70 backdrop-blur-lg border border-gray-200 
-              rounded-xl px-4 py-3 shadow-md text-sm whitespace-nowrap`}
+            style={{ y: visualY }}
+            initial={{ opacity: 0, scale: 0.96, y: 22 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
+            className="relative overflow-hidden rounded-[30px] border border-[#E7E9EE] bg-white p-5 shadow-[0_30px_50px_rgba(17,24,39,0.08)] sm:p-6"
           >
-            {card.text}
-          </motion.div>
-        ))}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,91,255,0.12),_transparent_45%)]" />
 
-      </div>
+            <div className="relative">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#667085]">
+                    Career journey
+                  </p>
+                  <h2 className="mt-2 text-2xl font-bold text-[#111827]">Search flow</h2>
+                </div>
+                <div className="rounded-full bg-[#EEF2FF] px-3 py-1.5 text-xs font-semibold text-[#4338CA]">
+                  Guided
+                </div>
+              </div>
+
+              <div className="relative space-y-3">
+                <div className="absolute left-[1.4rem] top-3 bottom-3 w-px bg-gradient-to-b from-[#635BFF] via-[#C7D2FE] to-[#E7E9EE]" />
+
+                {journey.map((step, index) => {
+                  const icons = [FileText, Sparkles, BriefcaseBusiness, MessageSquareText, ArrowRight];
+                  const Icon = icons[index];
+
+                  return (
+                    <motion.div
+                      key={step.title}
+                      initial={{ opacity: 0, x: 12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.18 + index * 0.08, ease: "easeOut" }}
+                      className="relative flex items-center gap-4"
+                    >
+                      <motion.div
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 3.5 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                        className="relative z-10 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E7E9EE] bg-white text-[#635BFF] shadow-sm"
+                      >
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                      </motion.div>
+
+                      <div className="flex-1 rounded-2xl border border-[#E7E9EE] bg-[#F8F9FF] px-4 py-3">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#667085]">
+                          {index + 1}
+                        </p>
+                        <h3 className="mt-1 text-base font-semibold text-[#111827]">{step.title}</h3>
+                        <p className="mt-1 text-sm text-[#667085]">{step.note}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -12, y: 8 }}
+            animate={{ opacity: 1, x: 0, y: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute -left-4 top-12 rounded-2xl border border-[#E7E9EE] bg-white px-3 py-2 shadow-[0_16px_30px_rgba(17,24,39,0.06)]"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#667085]">Current focus</p>
+            <p className="mt-2 text-sm font-semibold text-[#111827]">Targeted roles</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 12, y: 8 }}
+            animate={{ opacity: 1, x: 0, y: [0, 8, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+            className="absolute -right-3 bottom-10 rounded-2xl border border-[#E7E9EE] bg-white px-3 py-2 shadow-[0_16px_30px_rgba(17,24,39,0.06)]"
+          >
+            <p className="flex items-center gap-2 text-sm font-semibold text-[#111827]">
+              <Sparkles className="h-4 w-4 text-[#635BFF]" aria-hidden="true" />
+              Human support
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

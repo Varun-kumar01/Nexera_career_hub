@@ -1,210 +1,72 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { ArrowRight, MessageSquareText } from "lucide-react";
+import LeadForm from "@/components/LeadForm";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
+
 export default function CTA() {
-
-const testimonials1 = [
-  {
-    name: "Prajwala",
-    text: "I was applying consistently but getting no responses. Nexera handled targeted applications, and within 3 weeks I had 6 interviews.",
-  },
-  {
-    name: "Karthik",
-    text: "My resume wasn’t getting shortlisted despite multiple applications. Nexera optimized it with ATS keywords. Within days, I started getting callbacks.",
-  },
-  {
-    name: "Abdul",
-    text: "Applying daily was exhausting and inconsistent. Nexera took over and made the process structured. I could focus completely on interview preparation.",
-  },
-  {
-    name: "Surya Teja",
-    text: "I spent hours applying without results or tracking. Nexera handled applications and follow-ups efficiently. I focused only on interviews.",
-  },
-  {
-    name: "Arjun",
-    text: "I was applying randomly without direction. Nexera made the process targeted and strategic. That’s when interview calls started coming in.",
-  },
-  {
-    name: "Mani Dileep",
-    text: "I didn’t expect responses from top companies I was aiming for. Nexera optimized my profile and applied strategically. I started getting interview calls.",
-  },
-];
-
-const testimonials2 = [
-  {
-    name: "Mounika",
-    text: "As a fresher, I struggled to get even internship calls. Nexera structured my profile properly. Within 2 weeks, I received my first internship offer.",
-  },
-  {
-    name: "Anil",
-    text: "I was in my notice period without any offers, which was stressful. Nexera ensured daily targeted applications. I secured a role before my last working day.",
-  },
-  {
-    name: "Apoorva",
-    text: "Switching domains felt confusing and my applications weren’t working. Nexera rebuilt my profile for the new domain. I started getting relevant interview calls.",
-  },
-  {
-    name: "Pranay Cheruku",
-    text: "I was applying randomly with no clear results. Nexera introduced a targeted approach. Interview calls increased noticeably in a short time.",
-  },
-  {
-    name: "Aravind",
-    text: "I couldn’t track applications and missed follow-ups. Nexera handled tracking systematically. I never missed an opportunity again.",
-  },
-  {
-    name: "Smrithi Charan",
-    text: "My resume was too generic and not aligned with roles. Nexera optimized it based on job descriptions. I started getting consistent shortlists.",
-  },
-  {
-    name: "Sneha Reddy",
-    text: "Managing a job and applications was overwhelming. Nexera handled everything end-to-end. I focused fully on interview preparation.",
-  },
-];
-
-  const testimonials3 = [...testimonials1, ...testimonials2]
-
-  function Card({ text, name }: any) {
-    return (
-      <div className="h-[200px] rounded-2xl p-5 bg-gradient-to-r from-orange-100 to-pink-100 backdrop-blur-md shadow-sm hover:shadow-md transition">
-        <p className="text-md font-semibold text-textSoft leading-relaxed line-clamp-5">
-          “{text}”
-        </p>
-        <p className="mt-4 text-md font-semibold italic text-textMain">
-          — {name}
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <section id="contact" className="py-20 px-6">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+    <motion.section
+      id="contact"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="relative px-4 py-20 sm:py-24"
+    >
+      <motion.div
+        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,91,255,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.12),transparent_32%)]"
+      />
 
-        {/* LEFT - SCROLLING TESTIMONIALS */}
-        <div className="relative h-[520px] overflow-hidden">
+      <div className="container relative">
+        <div className="rounded-[32px] bg-[#111827] px-5 py-8 shadow-[0_18px_50px_rgba(17,24,39,0.1)] sm:px-8 lg:px-10 lg:py-10">
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#C9D2FF]">
+                Final CTA
+              </p>
+              <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Your next opportunity starts with a better job search.
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-[#D5DBE8]">
+                Tell us where you want to go. We&apos;ll help you build the path to get there.
+              </p>
 
-          <div className="absolute inset-0 pointer-events-none z-10 
-            [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]
-            [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]" />
-
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-              {/* MOBILE (1 COLUMN) */}
-              <div className="space-y-6 animate-scroll-slow md:hidden">
-                {[...testimonials3, ...testimonials3].map((t, i) => (
-                  <Card key={i} {...t} />
-                ))}
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <motion.a
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#635BFF] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#4F46E5]"
+                >
+                  Start Your Career Journey <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </motion.a>
+                <motion.a
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={getWhatsAppUrl("Hi Nexera, I'd like to talk to a career specialist on WhatsApp.")}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#2B3654] bg-white/5 px-5 py-3.5 text-sm font-semibold text-white transition hover:border-[#44507A]"
+                >
+                  <MessageSquareText className="h-4 w-4" aria-hidden="true" />
+                  Talk to Nexera on WhatsApp
+                </motion.a>
               </div>
+            </motion.div>
 
-              {/* DESKTOP COLUMN 1 */}
-              <div className="hidden md:block space-y-6 animate-scroll-medium">
-                {[...testimonials1, ...testimonials1].map((t, i) => (
-                  <Card key={i} {...t} />
-                ))}
-              </div>
-
-              {/* DESKTOP COLUMN 2 */}
-              <div className="hidden md:block space-y-6 animate-scroll-slow mt-12">
-                {[...testimonials2, ...testimonials2].map((t, i) => (
-                  <Card key={i} {...t} />
-                ))}
-              </div>
-
-            </div>
+            <LeadForm />
           </div>
-
-        {/* RIGHT - FORM */}
-        <div className="sticky top-24">
-
-          <div className="bg-neutral-100 backdrop-blur-md shadow-xl rounded-2xl p-8 mt-7">
-
-            <h2 className="text-2xl md:text-3xl font-bold text-textMain">
-              Start Your Job Search
-            </h2>
-
-            <p className="mt-2 text-textSoft text-sm">
-              Let us handle applications while you focus on interviews.
-            </p>
-
-            <form className="mt-6 space-y-4 ">
-
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none"
-              />
-
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none"
-              />
-
-              <input
-                type="text"
-                placeholder="Branch (e.g. Computer Science, Finance)"
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none"
-              />
-
-              <input
-                type="text"
-                placeholder="Experience (e.g. Fresher, 1 year)"
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none"
-              />
-
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-
-                  const form = e.currentTarget.closest("form") as HTMLFormElement | null;
-
-                  if (!form) return; // safety check
-
-                  const inputs = form.querySelectorAll("input");
-                  // const inputs = form.querySelectorAll("input");
-
-                  const data = {
-                    name: inputs[0]?.value.trim(),
-                    email: inputs[1]?.value.trim(),
-                    branch: inputs[2]?.value.trim(),
-                    experience: inputs[3]?.value.trim(),
-                  };
-
-                  // ✅ VALIDATION
-                  if (!data.name || !data.email) {
-                    alert("Please fill Name, Email");
-                    return;
-                  }
-
-                  const message = encodeURIComponent(
-                    `Hi, I'm interested in Nexera Career Hub.
-
-                    Name: ${data.name}
-                    Email: ${data.email}
-                    Branch: ${data.branch || "-"}
-                    Experience: ${data.experience || "-"}`
-                  );
-
-                  const phoneNumber = "919553059468";
-
-                  window.open(
-                    `https://wa.me/${phoneNumber}?text=${message}`,
-                    "_blank"
-                  );
-                }}
-                className="w-full py-3 cursor-pointer rounded-xl font-semibold hover:shadow-md transition bg-gradient-to-r from-orange-100 to-pink-100 shadow-md"
-              >
-                Continue on WhatsApp →
-              </button>
-
-            </form>
-
-          </div>
-
         </div>
-
       </div>
-    </section>
+    </motion.section>
   );
 }

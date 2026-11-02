@@ -1,51 +1,58 @@
 @import "tailwindcss";
 
+:root {
+  --background: #f7f8fc;
+  --foreground: #111827;
+  --muted: #667085;
+  --primary: #635bff;
+  --primary-dark: #4f46e5;
+  --border: #e7e9ee;
+  --card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: radial-gradient(
-      circle at 10% 20%,
-      rgba(249, 115, 22, 0.08),
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 80% 30%,
-      rgba(225, 29, 72, 0.08),
-      transparent 40%
-    ),
-    #fff7f5;
-
-  color: #1f2937;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
-.perspective {
-  perspective: 1000px;
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-@keyframes gradientMove {
-  0% {
-    transform: translateX(-30%);
+a {
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: #635bff;
+  color: #ffffff;
+}
+
+.container {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: min(1180px, calc(100% - 48px));
   }
-  100% {
-    transform: translateX(30%);
-  }
-}
-
-
-/* /////////////////////// */
-
-@keyframes scrollSlow {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-
-@keyframes scrollMedium {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-
-.animate-scroll-slow {
-  animation: scrollSlow 22s linear infinite;
-}
-
-.animate-scroll-medium {
-  animation: scrollMedium 16s linear infinite;
 }

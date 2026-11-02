@@ -1,21 +1,33 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Trust from "@/components/Trust";
+import Problem from "@/components/Problem";
+import Transformation from "@/components/Transformation";
 import HowItWorks from "@/components/HowItWorks";
+import Services from "@/components/Services";
+import Journey from "@/components/Journey";
+import Testimonials from "@/components/Testimonials";
+import Audience from "@/components/Audience";
+import WhyNexera from "@/components/WhyNexera";
 import Pricing from "@/components/Pricing";
+import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import About from "@/components/About";
 
 export default function Home() {
   return (
-    <main className="bg-bg min-h-screen">
+    <main className="bg-[#F7F8FC] text-[#111827]">
       <Navbar />
       <Hero />
-      <About/>
+      <Problem />
+      <Transformation />
+      <HowItWorks />
       <Services />
-      <Trust />
+      <Journey />
+      <Testimonials />
+      <Audience />
+      <WhyNexera />
+      <Pricing />
+      <FAQ />
       <CTA />
       <Footer />
     </main>
