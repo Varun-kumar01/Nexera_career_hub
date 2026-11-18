@@ -1,474 +1,3 @@
-// "use client";
-
-// import { useState } from "react";
-// import {
-//   LayoutDashboard,
-//   Globe,
-//   BriefcaseBusiness,
-//   MessageSquareQuote,
-//   Trophy,
-//   CircleHelp,
-//   CreditCard,
-//   Images,
-//   Users,
-//   Settings,
-//   LogOut,
-//   Menu,
-//   X,
-//   ExternalLink,
-// } from "lucide-react";
-
-// type AdminDashboardProps = {
-//   admin: {
-//     id: number;
-//     email: string;
-//   };
-// };
-
-// const menuItems = [
-//   {
-//     label: "Overview",
-//     icon: LayoutDashboard,
-//   },
-//   {
-//     label: "Website Content",
-//     icon: Globe,
-//   },
-//   {
-//     label: "Services",
-//     icon: BriefcaseBusiness,
-//   },
-//   {
-//     label: "Testimonials",
-//     icon: MessageSquareQuote,
-//   },
-//   {
-//     label: "Success Stories",
-//     icon: Trophy,
-//   },
-//   {
-//     label: "FAQ",
-//     icon: CircleHelp,
-//   },
-//   {
-//     label: "Pricing",
-//     icon: CreditCard,
-//   },
-//   {
-//     label: "Media",
-//     icon: Images,
-//   },
-//   {
-//     label: "Leads",
-//     icon: Users,
-//   },
-//   {
-//     label: "Settings",
-//     icon: Settings,
-//   },
-// ];
-
-// export default function AdminDashboard({
-//   admin,
-// }: AdminDashboardProps) {
-//   const [mobileOpen, setMobileOpen] = useState(false);
-//   const [activePage, setActivePage] =
-//     useState("Overview");
-
-//   async function handleLogout() {
-//     await fetch("/api/admin/logout", {
-//       method: "POST",
-//     });
-
-//     window.location.href = "/secure";
-//   }
-
-//   function selectPage(label: string) {
-//     setActivePage(label);
-//     setMobileOpen(false);
-//   }
-
-//   return (
-//     <div className="min-h-screen bg-[#f7f8fc] text-[#111827]">
-//       {/* Mobile header */}
-//       <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-black/[0.06] bg-white px-4 lg:hidden">
-//         <div className="flex items-center gap-2">
-//           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#635BFF] font-black text-white">
-//             N
-//           </div>
-
-//           <span className="font-bold">
-//             NEXERA ADMIN
-//           </span>
-//         </div>
-
-//         <button
-//           onClick={() =>
-//             setMobileOpen(!mobileOpen)
-//           }
-//           className="rounded-xl border border-black/[0.06] p-2"
-//         >
-//           {mobileOpen ? (
-//             <X size={20} />
-//           ) : (
-//             <Menu size={20} />
-//           )}
-//         </button>
-//       </div>
-
-//       <div className="flex min-h-screen">
-//         {/* Sidebar */}
-//         <aside
-//           className={`
-//             fixed inset-y-0 left-0 z-50 w-72
-//             border-r border-black/[0.06]
-//             bg-white
-//             transition-transform duration-300
-//             lg:static lg:translate-x-0
-//             ${
-//               mobileOpen
-//                 ? "translate-x-0"
-//                 : "-translate-x-full"
-//             }
-//           `}
-//         >
-//           <div className="flex h-full flex-col">
-//             {/* Logo */}
-//             <div className="hidden h-20 items-center gap-3 border-b border-black/[0.06] px-6 lg:flex">
-//               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#635BFF] font-black text-white">
-//                 N
-//               </div>
-
-//               <div>
-//                 <div className="text-sm font-black tracking-tight">
-//                   NEXERA
-//                 </div>
-
-//                 <div className="text-[9px] font-semibold tracking-[0.2em] text-[#98A2B3]">
-//                   ADMIN PANEL
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Mobile logo */}
-//             <div className="flex h-20 items-center gap-3 border-b border-black/[0.06] px-6 lg:hidden">
-//               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#635BFF] font-black text-white">
-//                 N
-//               </div>
-
-//               <div>
-//                 <div className="text-sm font-black">
-//                   NEXERA
-//                 </div>
-
-//                 <div className="text-[9px] font-semibold tracking-[0.2em] text-[#98A2B3]">
-//                   ADMIN PANEL
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Navigation */}
-//             <div className="flex-1 overflow-y-auto px-4 py-6">
-//               <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#98A2B3]">
-//                 Management
-//               </p>
-
-//               <nav className="space-y-1">
-//                 {menuItems.map((item) => {
-//                   const Icon = item.icon;
-//                   const active =
-//                     activePage === item.label;
-
-//                   return (
-//                     <button
-//                       key={item.label}
-//                       onClick={() =>
-//                         selectPage(item.label)
-//                       }
-//                       className={`
-//                         flex w-full items-center gap-3
-//                         rounded-xl px-3 py-2.5
-//                         text-left text-sm font-medium
-//                         transition
-//                         ${
-//                           active
-//                             ? "bg-[#635BFF]/10 text-[#635BFF]"
-//                             : "text-[#667085] hover:bg-[#f7f8fc] hover:text-[#111827]"
-//                         }
-//                       `}
-//                     >
-//                       <Icon size={18} />
-
-//                       {item.label}
-//                     </button>
-//                   );
-//                 })}
-//               </nav>
-//             </div>
-
-//             {/* Bottom */}
-//             <div className="border-t border-black/[0.06] p-4">
-//               <div className="mb-3 rounded-xl bg-[#f7f8fc] p-3">
-//                 <p className="truncate text-xs font-semibold text-[#344054]">
-//                   {admin.email}
-//                 </p>
-
-//                 <p className="mt-1 text-[10px] text-[#98A2B3]">
-//                   Administrator
-//                 </p>
-//               </div>
-
-//               <button
-//                 onClick={handleLogout}
-//                 className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#667085] transition hover:bg-red-50 hover:text-red-600"
-//               >
-//                 <LogOut size={18} />
-//                 Logout
-//               </button>
-//             </div>
-//           </div>
-//         </aside>
-
-//         {/* Main */}
-//         <main className="min-w-0 flex-1">
-//           <div className="mx-auto max-w-[1500px] px-5 py-8 sm:px-8 lg:px-10">
-//             {/* Top bar */}
-//             <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-//               <div>
-//                 <p className="mb-1 text-sm text-[#98A2B3]">
-//                   Nexera Admin
-//                 </p>
-
-//                 <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-//                   {activePage}
-//                 </h1>
-//               </div>
-
-//               <a
-//                 href="/"
-//                 target="_blank"
-//                 className="inline-flex w-fit items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-sm transition hover:border-[#635BFF]/30 hover:text-[#635BFF]"
-//               >
-//                 View Website
-//                 <ExternalLink size={15} />
-//               </a>
-//             </div>
-
-//             {/* Overview */}
-//             {activePage === "Overview" && (
-//               <Overview />
-//             )}
-
-//             {/* Placeholder pages */}
-//             {activePage !== "Overview" && (
-//               <ComingSoon title={activePage} />
-//             )}
-//           </div>
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function Overview() {
-//   const stats = [
-//     {
-//       label: "Testimonials",
-//       value: "0",
-//       icon: MessageSquareQuote,
-//     },
-//     {
-//       label: "Success Stories",
-//       value: "0",
-//       icon: Trophy,
-//     },
-//     {
-//       label: "Services",
-//       value: "0",
-//       icon: BriefcaseBusiness,
-//     },
-//     {
-//       label: "New Leads",
-//       value: "0",
-//       icon: Users,
-//     },
-//   ];
-
-//   return (
-//     <div>
-//       <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-//         {stats.map((stat) => {
-//           const Icon = stat.icon;
-
-//           return (
-//             <div
-//               key={stat.label}
-//               className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-sm"
-//             >
-//               <div className="mb-5 flex items-center justify-between">
-//                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#635BFF]/10 text-[#635BFF]">
-//                   <Icon size={19} />
-//                 </div>
-//               </div>
-
-//               <p className="text-2xl font-bold">
-//                 {stat.value}
-//               </p>
-
-//               <p className="mt-1 text-sm text-[#667085]">
-//                 {stat.label}
-//               </p>
-//             </div>
-//           );
-//         })}
-//       </div>
-
-//       <div className="grid gap-6 lg:grid-cols-2">
-//         <div className="rounded-2xl border border-black/[0.06] bg-white p-6">
-//           <h2 className="text-lg font-bold">
-//             Website Content
-//           </h2>
-
-//           <p className="mt-2 text-sm leading-6 text-[#667085]">
-//             Manage the content displayed across
-//             the Nexera website.
-//           </p>
-
-//           <div className="mt-6 space-y-3">
-//             <DashboardItem
-//               title="Homepage"
-//               description="Hero, sections and CTA"
-//             />
-
-//             <DashboardItem
-//               title="Services"
-//               description="Manage career services"
-//             />
-
-//             <DashboardItem
-//               title="Testimonials"
-//               description="Add and manage testimonials"
-//             />
-
-//             <DashboardItem
-//               title="FAQ"
-//               description="Manage frequently asked questions"
-//             />
-//           </div>
-//         </div>
-
-//         <div className="rounded-2xl border border-black/[0.06] bg-white p-6">
-//           <h2 className="text-lg font-bold">
-//             Quick Actions
-//           </h2>
-
-//           <p className="mt-2 text-sm leading-6 text-[#667085]">
-//             Frequently used content management
-//             actions.
-//           </p>
-
-//           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-//             <QuickAction
-//               icon={MessageSquareQuote}
-//               title="Add Testimonial"
-//             />
-
-//             <QuickAction
-//               icon={Trophy}
-//               title="Add Success Story"
-//             />
-
-//             <QuickAction
-//               icon={BriefcaseBusiness}
-//               title="Add Service"
-//             />
-
-//             <QuickAction
-//               icon={Images}
-//               title="Upload Media"
-//             />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function DashboardItem({
-//   title,
-//   description,
-// }: {
-//   title: string;
-//   description: string;
-// }) {
-//   return (
-//     <div className="flex items-center justify-between rounded-xl border border-black/[0.06] p-4">
-//       <div>
-//         <p className="text-sm font-semibold">
-//           {title}
-//         </p>
-
-//         <p className="mt-1 text-xs text-[#98A2B3]">
-//           {description}
-//         </p>
-//       </div>
-
-//       <span className="text-xs font-medium text-[#635BFF]">
-//         Manage
-//       </span>
-//     </div>
-//   );
-// }
-
-// function QuickAction({
-//   icon: Icon,
-//   title,
-// }: {
-//   icon: typeof Images;
-//   title: string;
-// }) {
-//   return (
-//     <button className="flex items-center gap-3 rounded-xl border border-black/[0.06] p-4 text-left transition hover:border-[#635BFF]/30 hover:bg-[#635BFF]/5">
-//       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#635BFF]/10 text-[#635BFF]">
-//         <Icon size={17} />
-//       </div>
-
-//       <span className="text-sm font-semibold">
-//         {title}
-//       </span>
-//     </button>
-//   );
-// }
-
-// function ComingSoon({
-//   title,
-// }: {
-//   title: string;
-// }) {
-//   return (
-//     <div className="flex min-h-[500px] items-center justify-center rounded-3xl border border-black/[0.06] bg-white">
-//       <div className="text-center">
-//         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#635BFF]/10 text-[#635BFF]">
-//           <Settings size={24} />
-//         </div>
-
-//         <h2 className="text-xl font-bold">
-//           {title}
-//         </h2>
-
-//         <p className="mt-2 text-sm text-[#667085]">
-//           Content management will be added
-//           here next.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -495,7 +24,16 @@ import {
   EyeOff,
   CheckCircle2,
   AlertCircle,
+  ArrowRight,
 } from "lucide-react";
+
+import ServicesManager from "./ServicesManager";
+import TestimonialsManager from "./TestimonialsManager";
+import FAQManager from "./FAQManager";
+import PricingManager from "./PricingManager";
+import LeadsManager from "./LeadsManager";
+import SettingsManager from "./SettingsManager";
+import ImageUploader from "./ImageUploader";
 
 type AdminDashboardProps = {
   admin: {
@@ -529,9 +67,7 @@ const menuItems = [
   { label: "Settings", icon: Settings },
 ];
 
-export default function AdminDashboard({
-  admin,
-}: AdminDashboardProps) {
+export default function AdminDashboard({ admin }: AdminDashboardProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activePage, setActivePage] = useState("Overview");
 
@@ -539,7 +75,7 @@ export default function AdminDashboard({
     try {
       await fetch("/api/admin/logout", { method: "POST" });
     } finally {
-      window.location.href = "/admin-x7k9";
+      window.location.href = "/secure";
     }
   }
 
@@ -578,10 +114,10 @@ export default function AdminDashboard({
         />
       )}
 
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen lg:h-screen lg:overflow-hidden">
         {/* Sidebar */}
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-72 border-r border-black/[0.06] bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${
+          className={`fixed inset-y-0 left-0 z-50 w-72 flex-shrink-0 border-r border-black/[0.06] bg-white transition-transform duration-300 lg:static lg:h-full lg:translate-x-0 ${
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -591,9 +127,7 @@ export default function AdminDashboard({
                 N
               </div>
               <div>
-                <div className="text-sm font-black tracking-tight">
-                  NEXERA
-                </div>
+                <div className="text-sm font-black tracking-tight">NEXERA</div>
                 <div className="text-[9px] font-semibold tracking-[0.2em] text-[#98A2B3]">
                   ADMIN PANEL
                 </div>
@@ -617,7 +151,7 @@ export default function AdminDashboard({
                       onClick={() => selectPage(item.label)}
                       className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
                         active
-                          ? "bg-[#635BFF]/10 text-[#635BFF]"
+                          ? "bg-[#635BFF]/10 text-[#635BFF] font-semibold"
                           : "text-[#667085] hover:bg-[#f7f8fc] hover:text-[#111827]"
                       }`}
                     >
@@ -634,9 +168,7 @@ export default function AdminDashboard({
                 <p className="truncate text-xs font-semibold text-[#344054]">
                   {admin.email}
                 </p>
-                <p className="mt-1 text-[10px] text-[#98A2B3]">
-                  Administrator
-                </p>
+                <p className="mt-1 text-[10px] text-[#98A2B3]">Administrator</p>
               </div>
 
               <button
@@ -652,13 +184,11 @@ export default function AdminDashboard({
         </aside>
 
         {/* Main content */}
-        <main className="min-w-0 flex-1">
+        <main className="min-w-0 flex-1 lg:h-full lg:overflow-y-auto">
           <div className="mx-auto max-w-[1500px] px-5 py-8 sm:px-8 lg:px-10">
             <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
               <div>
-                <p className="mb-1 text-sm text-[#98A2B3]">
-                  Nexera Admin
-                </p>
+                <p className="mb-1 text-sm text-[#98A2B3]">Nexera Admin</p>
                 <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
                   {activePage}
                 </h1>
@@ -675,16 +205,27 @@ export default function AdminDashboard({
               </a>
             </div>
 
-            {activePage === "Overview" && <Overview />}
+            {activePage === "Overview" && <Overview onNavigate={selectPage} />}
 
-            {activePage === "Website Content" && (
-              <WebsiteContentManager />
+            {activePage === "Website Content" && <WebsiteContentManager />}
+
+            {activePage === "Services" && <ServicesManager />}
+
+            {activePage === "Testimonials" && <TestimonialsManager />}
+
+            {activePage === "Success Stories" && (
+              <TestimonialsManager onlyFeatured={true} title="Success Stories (Featured)" />
             )}
 
-            {activePage !== "Overview" &&
-              activePage !== "Website Content" && (
-                <ComingSoon title={activePage} />
-              )}
+            {activePage === "FAQ" && <FAQManager />}
+
+            {activePage === "Pricing" && <PricingManager />}
+
+            {activePage === "Media" && <MediaManager />}
+
+            {activePage === "Leads" && <LeadsManager />}
+
+            {activePage === "Settings" && <SettingsManager />}
           </div>
         </main>
       </div>
@@ -692,73 +233,136 @@ export default function AdminDashboard({
   );
 }
 
-function Overview() {
-  const stats = [
-    { label: "Testimonials", value: "0", icon: MessageSquareQuote },
-    { label: "Success Stories", value: "0", icon: Trophy },
-    { label: "Services", value: "0", icon: BriefcaseBusiness },
-    { label: "New Leads", value: "0", icon: Users },
+function Overview({ onNavigate }: { onNavigate: (page: string) => void }) {
+  const [stats, setStats] = useState({
+    testimonials: 0,
+    successStories: 0,
+    services: 0,
+    leads: 0,
+    faqs: 0,
+    pricing: 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  async function fetchStats() {
+    try {
+      const res = await fetch("/api/admin/stats", { cache: "no-store" });
+      const data = await res.json();
+      if (data.success && data.stats) {
+        setStats(data.stats);
+      }
+    } catch (err) {
+      console.error("Failed to fetch admin stats:", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    void fetchStats();
+  }, []);
+
+  const statCards = [
+    { label: "New Leads", value: stats.leads, icon: Users, target: "Leads" },
+    { label: "Services", value: stats.services, icon: BriefcaseBusiness, target: "Services" },
+    { label: "Testimonials", value: stats.testimonials, icon: MessageSquareQuote, target: "Testimonials" },
+    { label: "Success Stories", value: stats.successStories, icon: Trophy, target: "Success Stories" },
   ];
 
   return (
     <div>
       <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((stat) => {
+        {statCards.map((stat) => {
           const Icon = stat.icon;
 
           return (
-            <div
+            <button
               key={stat.label}
-              className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-sm"
+              type="button"
+              onClick={() => onNavigate(stat.target)}
+              className="text-left rounded-2xl border border-black/[0.06] bg-white p-5 shadow-sm transition hover:border-[#635BFF]/30 hover:shadow-md"
             >
               <div className="mb-5 flex items-center justify-between">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#635BFF]/10 text-[#635BFF]">
                   <Icon size={19} />
                 </div>
+                <ArrowRight size={14} className="text-gray-400" />
               </div>
-              <p className="text-2xl font-bold">{stat.value}</p>
-              <p className="mt-1 text-sm text-[#667085]">{stat.label}</p>
-            </div>
+              <p className="text-3xl font-black text-[#111827]">
+                {loading ? "..." : stat.value}
+              </p>
+              <p className="mt-1 text-sm font-medium text-[#667085]">{stat.label}</p>
+            </button>
           );
         })}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-black/[0.06] bg-white p-6">
+        <div className="rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm">
           <h2 className="text-lg font-bold">Website Content</h2>
-          <p className="mt-2 text-sm leading-6 text-[#667085]">
-            Manage the content displayed across the Nexera website.
+          <p className="mt-1 text-sm leading-6 text-[#667085]">
+            Manage all sections and copy across the live website.
           </p>
           <div className="mt-6 space-y-3">
             <DashboardItem
-              title="Homepage"
-              description="Hero, sections and CTA"
+              title="Homepage Sections"
+              description="Hero, Problem, How It Works, Why Nexera, and CTA"
+              onManage={() => onNavigate("Website Content")}
             />
             <DashboardItem
-              title="Services"
-              description="Manage career services"
+              title="Career Services"
+              description={`${stats.services} active services published in the database`}
+              onManage={() => onNavigate("Services")}
             />
             <DashboardItem
-              title="Testimonials"
-              description="Add and manage testimonials"
+              title="Candidate Testimonials"
+              description={`${stats.testimonials} testimonials, ${stats.successStories} featured stories`}
+              onManage={() => onNavigate("Testimonials")}
             />
             <DashboardItem
-              title="FAQ"
-              description="Manage frequently asked questions"
+              title="FAQ Accordion"
+              description={`${stats.faqs} frequently asked questions`}
+              onManage={() => onNavigate("FAQ")}
             />
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/[0.06] bg-white p-6">
+        <div className="rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm">
           <h2 className="text-lg font-bold">Quick Actions</h2>
-          <p className="mt-2 text-sm leading-6 text-[#667085]">
-            Frequently used content management actions.
+          <p className="mt-1 text-sm leading-6 text-[#667085]">
+            Jump straight into essential content tasks.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <QuickAction icon={MessageSquareQuote} title="Add Testimonial" />
-            <QuickAction icon={Trophy} title="Add Success Story" />
-            <QuickAction icon={BriefcaseBusiness} title="Add Service" />
-            <QuickAction icon={Images} title="Upload Media" />
+            <QuickAction
+              icon={Users}
+              title="View Inquiries"
+              onClick={() => onNavigate("Leads")}
+            />
+            <QuickAction
+              icon={BriefcaseBusiness}
+              title="Manage Services"
+              onClick={() => onNavigate("Services")}
+            />
+            <QuickAction
+              icon={MessageSquareQuote}
+              title="Manage Stories"
+              onClick={() => onNavigate("Testimonials")}
+            />
+            <QuickAction
+              icon={CreditCard}
+              title="Manage Pricing"
+              onClick={() => onNavigate("Pricing")}
+            />
+            <QuickAction
+              icon={CircleHelp}
+              title="Manage FAQs"
+              onClick={() => onNavigate("FAQ")}
+            />
+            <QuickAction
+              icon={Settings}
+              title="Site Settings"
+              onClick={() => onNavigate("Settings")}
+            />
           </div>
         </div>
       </div>
@@ -769,52 +373,110 @@ function Overview() {
 function DashboardItem({
   title,
   description,
+  onManage,
 }: {
   title: string;
   description: string;
+  onManage: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-xl border border-black/[0.06] p-4">
+    <button
+      type="button"
+      onClick={onManage}
+      className="flex w-full items-center justify-between rounded-xl border border-black/[0.06] p-4 text-left transition hover:border-[#635BFF]/30 hover:bg-[#F8F9FF]"
+    >
       <div>
-        <p className="text-sm font-semibold">{title}</p>
+        <p className="text-sm font-semibold text-[#111827]">{title}</p>
         <p className="mt-1 text-xs text-[#98A2B3]">{description}</p>
       </div>
-      <span className="text-xs font-medium text-[#635BFF]">Manage</span>
-    </div>
+      <span className="text-xs font-semibold text-[#635BFF]">Manage →</span>
+    </button>
   );
 }
 
 function QuickAction({
   icon: Icon,
   title,
+  onClick,
 }: {
   icon: typeof Images;
   title: string;
+  onClick: () => void;
 }) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className="flex items-center gap-3 rounded-xl border border-black/[0.06] p-4 text-left transition hover:border-[#635BFF]/30 hover:bg-[#635BFF]/5"
     >
       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#635BFF]/10 text-[#635BFF]">
         <Icon size={17} />
       </div>
-      <span className="text-sm font-semibold">{title}</span>
+      <span className="text-sm font-semibold text-[#111827]">{title}</span>
     </button>
   );
 }
 
-function ComingSoon({ title }: { title: string }) {
+function MediaManager() {
+  const [uploadedUrl, setUploadedUrl] = useState<string>("");
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    if (!uploadedUrl) return;
+    navigator.clipboard.writeText(uploadedUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
   return (
-    <div className="flex min-h-[500px] items-center justify-center rounded-3xl border border-black/[0.06] bg-white">
-      <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#635BFF]/10 text-[#635BFF]">
-          <Settings size={24} />
-        </div>
-        <h2 className="text-xl font-bold">{title}</h2>
-        <p className="mt-2 text-sm text-[#667085]">
-          Content management will be added here next.
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-black/[0.06] bg-white p-6 sm:p-8">
+        <h2 className="text-lg font-bold text-[#111827]">Upload New Image</h2>
+        <p className="mt-1 text-sm text-[#667085]">
+          Upload images directly to the server. You can copy the generated URL and use it anywhere.
         </p>
+
+        <div className="mt-5 max-w-xl">
+          <ImageUploader
+            value={uploadedUrl}
+            onChange={(url) => setUploadedUrl(url)}
+            label="Upload Image File"
+            helperText="Upload any PNG, JPG, WEBP, SVG or GIF image"
+          />
+
+          {uploadedUrl && (
+            <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-gray-50 border border-gray-200 p-3">
+              <span className="truncate text-xs font-mono text-gray-700">{uploadedUrl}</span>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="shrink-0 rounded-lg bg-[#635BFF] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#5148e5]"
+              >
+                {copied ? "Copied!" : "Copy URL"}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-black/[0.06] bg-white p-6 sm:p-8">
+        <h3 className="text-base font-bold text-[#111827]">Image Asset Guidelines</h3>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-xl border border-dashed border-gray-200 p-4 bg-[#F8F9FF]">
+            <h4 className="text-sm font-semibold text-[#111827]">Direct Uploads</h4>
+            <p className="mt-1 text-xs text-gray-600 leading-relaxed">
+              Files uploaded here are stored in <code className="bg-white px-1 py-0.5 rounded border">public/uploads/</code> and served statically with zero latency.
+            </p>
+          </div>
+          <div className="rounded-xl border border-dashed border-gray-200 p-4 bg-[#F8F9FF]">
+            <h4 className="text-sm font-semibold text-[#111827]">Recommended Dimensions</h4>
+            <ul className="mt-2 text-xs text-gray-600 space-y-1">
+              <li>• <strong>Hero illustrations:</strong> 800 × 600 px (SVG or PNG)</li>
+              <li>• <strong>Testimonial avatars:</strong> 200 × 200 px (Square JPG/PNG)</li>
+              <li>• <strong>Services icons:</strong> Vector SVGs or 64 × 64 px PNGs</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -1145,32 +807,12 @@ function WebsiteContentManager() {
                 </div>
 
                 <div className="lg:col-span-2">
-                  <label className="mb-2 block text-sm font-semibold">
-                    Image URL
-                  </label>
-                  <input
-                    type="url"
-                    value={section.image_url ?? ""}
-                    onChange={(event) =>
-                      updateSection(section.id, "image_url", event.target.value)
-                    }
-                    placeholder="https://example.com/image.jpg"
-                    className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm outline-none transition focus:border-[#635BFF] focus:ring-2 focus:ring-[#635BFF]/10"
+                  <ImageUploader
+                    value={section.image_url}
+                    onChange={(url) => updateSection(section.id, "image_url", url)}
+                    label="Section Image"
+                    helperText="Upload an illustration or image file directly for this section"
                   />
-
-                  {section.image_url && (
-                    <div className="mt-3">
-                      <p className="mb-2 text-xs text-[#98A2B3]">
-                        Image preview
-                      </p>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={section.image_url}
-                        alt={`Preview for ${section.section_key}`}
-                        className="max-h-52 max-w-full rounded-xl border border-gray-100 object-contain"
-                      />
-                    </div>
-                  )}
                 </div>
 
                 <div>

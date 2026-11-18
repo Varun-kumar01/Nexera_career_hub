@@ -48,13 +48,23 @@ export async function POST(request: NextRequest) {
         email: admin.email,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Admin login error:", error);
+
+    const isDbError =
+      error?.code === "ECONNREFUSED" ||
+      error?.message?.includes("connect ECONNREFUSED") ||
+      (Array.isArray(error?.errors) &&
+        error.errors.some((e: any) => e?.code === "ECONNREFUSED"));
+
+    const message = isDbError
+      ? "Database is offline. Please start PostgreSQL service (postgresql-x64-18)."
+      : "Login failed";
 
     return NextResponse.json(
       {
         success: false,
-        message: "Login failed",
+        message,
       },
       { status: 500 }
     );

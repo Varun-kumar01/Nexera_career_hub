@@ -13,7 +13,7 @@ const steps = [
 
 export default function Journey() {
   return (
-    <section id="journey" className="px-4 py-20 sm:py-24">
+    <section id="journey" className="px-4 py-8 sm:py-10">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

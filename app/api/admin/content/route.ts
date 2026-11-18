@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAdminSession } from "@/lib/auth/admin-auth";
 import pool from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -103,6 +106,13 @@ export async function POST(request: Request) {
       ]
     );
 
+    try {
+      revalidatePath("/");
+      revalidatePath("/content");
+    } catch (e) {
+      // ignore in environments without active cache
+    }
+
     return NextResponse.json({
       success: true,
       section: result.rows[0],
@@ -191,6 +201,13 @@ export async function PUT(request: Request) {
       );
     }
 
+    try {
+      revalidatePath("/");
+      revalidatePath("/content");
+    } catch (e) {
+      // ignore in environments without active cache
+    }
+
     return NextResponse.json({
       success: true,
       section: result.rows[0],
@@ -240,6 +257,13 @@ export async function DELETE(request: Request) {
       `,
       [id]
     );
+
+    try {
+      revalidatePath("/");
+      revalidatePath("/content");
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({
       success: true,

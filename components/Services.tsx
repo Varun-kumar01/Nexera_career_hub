@@ -1,292 +1,278 @@
-// "use client";
-
-// export default function Services() {
-//   const services = [
-//     {
-//       title: "Job Applications",
-//       desc: "We apply to relevant roles daily based on your preferences, ensuring consistency and reach.",
-//     },
-//     {
-//       title: "Resume Optimization",
-//       desc: "We tailor your resume with ATS-friendly keywords aligned to job descriptions.",
-//     },
-//     {
-//       title: "Fully Managed Search",
-//       desc: "From applications to tracking, we handle your entire job search process end-to-end.",
-//     },
-//     {
-//       title: "Profile Monitoring",
-//       desc: "We monitor your applications, emails, and responses so nothing gets missed.",
-//     },
-//     {
-//       title: "JD-Based Customization",
-//       desc: "Each application is refined based on the job description for better results.",
-//     },
-//     {
-//       title: "Preference Targeting",
-//       desc: "Roles, location, salary, visa sponsorship — everything is aligned to your goals.",
-//     },
-//   ];
-
-//   return (
-//     <section className="py-20 px-6">
-//       <div className="max-w-7xl mx-auto">
-
-//         {/* Heading */}
-//         <div className="text-center max-w-2xl mx-auto">
-//           <h2 className="text-3xl md:text-4xl font-bold text-textMain">
-//             Everything You Need to Land Interviews
-//           </h2>
-//           <p className="mt-4 text-textSoft">
-//             We handle the entire job application workflow so you can focus on preparation and interviews.
-//           </p>
-//         </div>
-
-//         {/* Cards */}
-//         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-//           {services.map((service, index) => (
-//             <div
-//               key={index}
-//               className="group bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
-//             >
-//               <h3 className="text-lg font-semibold text-textMain">
-//                 {service.title}
-//               </h3>
-
-//               <p className="mt-3 text-sm text-textSoft">
-//                 {service.desc}
-//               </p>
-
-//               {/* subtle hover line */}
-//               <div className="mt-4 h-[2px] w-0 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300" />
-//             </div>
-//           ))}
-
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
-  BriefcaseBusiness,
-  Check,
-  FileText,
-  SearchCheck,
-  UserRound,
+  BarChart3,
+  CheckCircle2,
+  Compass,
+  FileCheck2,
+  Handshake,
+  Mail,
+  Send,
+  Sparkles,
+  Target,
+  Zap,
 } from "lucide-react";
 
-const serviceGroups = [
+interface ServiceItem {
+  step: string;
+  tag: string;
+  title: string;
+  description: string;
+  features?: string[];
+  icon: any;
+}
+
+const defaultServices: ServiceItem[] = [
   {
-    title: "Career Profile",
-    description: "A more compelling profile starts with strong positioning and clearer communication.",
-    items: ["Resume optimization", "Profile clarity", "Career positioning"],
-    visual: "profile",
-    icon: UserRound,
+    step: "01",
+    tag: "OUTREACH_ENGINE",
+    title: "Daily Application Pipeline",
+    description:
+      "Systematic daily outreach to 20–50 verified roles aligned with your domain, skills, and target locations.",
+    features: [
+      "20–50 verified submissions daily",
+      "Direct portal & recruiter outreach",
+      "Real-time submission telemetry",
+    ],
+    icon: Send,
   },
   {
-    title: "Job Search",
-    description: "Target the roles that match your strengths, preferences and growth direction.",
-    items: ["Relevant job discovery", "Targeted applications", "Better fit matching"],
-    visual: "search",
-    icon: SearchCheck,
+    step: "02",
+    tag: "RESUME_ENGINE",
+    title: "ATS Keyword Engineering",
+    description:
+      "Algorithmically tailored resumes optimized for applicant tracking systems to ensure 90%+ pass-through rates.",
+    features: [
+      "Role-specific ATS keyword injection",
+      "Clean single-column parsing layout",
+      "Recruiter-ready technical positioning",
+    ],
+    icon: FileCheck2,
   },
   {
-    title: "Application Management",
-    description: "Keep your search organized with structure, follow-ups and momentum.",
-    items: ["Application tracking", "Follow-up rhythm", "Clear next steps"],
-    visual: "manage",
-    icon: BriefcaseBusiness,
+    step: "03",
+    tag: "CAREER_OS",
+    title: "Full Career Management OS",
+    description:
+      "End-to-end governance of your entire job search workflow — applications, tracking, and interview momentum.",
+    features: [
+      "Structured application pipeline",
+      "WhatsApp status broadcasts",
+      "Interview prep questions & coaching",
+    ],
+    icon: Zap,
   },
   {
-    title: "Interview Support",
-    description: "Prepare for conversations with feedback that helps you present your best self.",
-    items: ["Interview preparation", "Position-specific guidance", "Confidence-building support"],
-    visual: "interview",
-    icon: FileText,
+    step: "04",
+    tag: "TELEMETRY",
+    title: "Recruiter Email & Response Tracking",
+    description:
+      "Continuous monitoring of application portals, emails, and recruiter inquiries to ensure zero missed callbacks.",
+    features: [
+      "Instant callback notifications",
+      "Portal follow-up cadence",
+      "Screening round scheduling assistance",
+    ],
+    icon: BarChart3,
+  },
+  {
+    step: "05",
+    tag: "ROLE_CUSTOM",
+    title: "Job Description Customization",
+    description:
+      "Every application is individually matched and tuned to the specific employer's hiring requirements.",
+    features: [
+      "Tailored project highlight bullet points",
+      "Custom cover letter generation",
+      "Domain alignment per vacancy",
+    ],
+    icon: Target,
+  },
+  {
+    step: "06",
+    tag: "TARGETING",
+    title: "Domain & Location Targeting",
+    description:
+      "Precision targeting across engineering, data, product, analytics, finance, and operations in your preferred cities.",
+    features: [
+      "Bengaluru, Hyderabad, Pune, Gurugram & remote",
+      "Fresh graduate & early career specialization",
+      "Salary expectation calibration",
+    ],
+    icon: Compass,
   },
 ];
 
+const iconMap = [Send, FileCheck2, Zap, BarChart3, Target, Compass, Handshake, Mail, Sparkles];
+
 export default function Services() {
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(defaultServices);
+
+  // Fetch live services from PostgreSQL Database
+  useEffect(() => {
+    fetch("/api/services")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.services) && data.services.length > 0) {
+          const defaultTags = [
+            "OUTREACH_ENGINE",
+            "RESUME_ENGINE",
+            "CAREER_OS",
+            "TELEMETRY",
+            "ROLE_CUSTOM",
+            "TARGETING",
+          ];
+
+          const mapped: ServiceItem[] = data.services.map((item: any, idx: number) => {
+            let parsedFeatures: string[] = [];
+            if (item.features) {
+              try {
+                const parsed =
+                  typeof item.features === "string" ? JSON.parse(item.features) : item.features;
+                if (Array.isArray(parsed)) parsedFeatures = parsed;
+                else if (typeof parsed === "string") {
+                  parsedFeatures = parsed.split("\n").map((s: string) => s.trim()).filter(Boolean);
+                }
+              } catch {
+                if (typeof item.features === "string") {
+                  parsedFeatures = item.features.split("\n").map((s: string) => s.trim()).filter(Boolean);
+                }
+              }
+            }
+
+            return {
+              step: idx < 9 ? `0${idx + 1}` : `${idx + 1}`,
+              tag: defaultTags[idx % defaultTags.length],
+              title: item.title,
+              description: item.description,
+              features:
+                parsedFeatures.length > 0
+                  ? parsedFeatures
+                  : defaultServices[idx % defaultServices.length]?.features || [],
+              icon: iconMap[idx % iconMap.length],
+            };
+          });
+
+          setServicesList(mapped);
+        }
+      })
+      .catch((err) => console.error("Error loading services from database:", err));
+  }, []);
+
   return (
-    <section id="services" className="px-4 py-20 sm:py-24">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#635BFF]">
-            Services
-          </p>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl">
-            Support built around the real work of finding the right role.
-          </h2>
-        </motion.div>
+    <section id="services" className="relative px-4 py-8 sm:py-14 bg-white border-y border-[#EEF1F6]">
+      <div className="container mx-auto max-w-7xl">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-8 sm:pb-12 border-b border-[#E7E9EE]">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="max-w-2xl"
+          >
+            <div className="flex items-center gap-2 text-xs font-mono tracking-[0.25em] uppercase text-[#6B7280]">
+              <span>—</span>
+              <span>WHAT WE HANDLE FOR YOU</span>
+            </div>
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#111827]">
+              End-to-End Career Services.
+            </h2>
+            <p className="mt-2 text-sm sm:text-base text-[#6B7280]">
+              A complete job application infrastructure, engineered for today&apos;s ambitious graduates.
+            </p>
+          </motion.div>
 
-        <div className="mt-12 space-y-8">
-          {serviceGroups.map(({ title, description, items, visual, icon: Icon }, index) => (
-            <motion.article
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.45, delay: index * 0.06, ease: "easeOut" }}
-              whileHover={{ y: -4 }}
-              className={`grid gap-6 rounded-[32px] border border-[#E7E9EE] bg-white p-6 shadow-[0_18px_45px_rgba(17,24,39,0.04)] lg:grid-cols-2 lg:p-8 ${
-                index % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
-              }`}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="shrink-0"
+          >
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-[#EEF2FF] border border-[#DDD6FE] px-5 py-2.5 text-xs font-bold text-[#635BFF] transition hover:bg-[#635BFF] hover:text-white"
             >
-              <motion.div
-                initial={{ opacity: 0, x: index % 2 === 0 ? -18 : 18 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="flex flex-col justify-center"
-              >
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F1F0FF] text-[#635BFF]">
-                  <Icon className="h-6 w-6" aria-hidden="true" />
-                </div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#635BFF]">
-                  {title}
-                </p>
-                <h3 className="mt-4 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl">
-                  {title}
-                </h3>
-                <p className="mt-4 max-w-xl text-base leading-7 text-[#475467]">{description}</p>
-
-                <ul className="mt-6 space-y-3">
-                  {items.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm font-medium text-[#111827]">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F1F0FF] text-[#635BFF]">
-                        <Check className="h-3.5 w-3.5" aria-hidden="true" />
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96, x: index % 2 === 0 ? 22 : -22 }}
-                whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, ease: "easeOut" }}
-                whileHover={{ y: -6 }}
-                className="flex items-center justify-center rounded-[28px] bg-[#F7F8FC] p-4 sm:p-6"
-              >
-                {visual === "profile" && (
-                  <div className="w-full rounded-[26px] border border-[#E7E9EE] bg-white p-5 shadow-sm">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F1F0FF] text-[#635BFF] font-semibold">
-                          N
-                        </div>
-                        <div>
-                          <p className="text-base font-semibold text-[#111827]">Nexera profile</p>
-                          <p className="text-xs uppercase tracking-[0.18em] text-[#667085]">Positioned</p>
-                        </div>
-                      </div>
-                      <span className="rounded-full bg-[#ECFDF5] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#16A34A]">
-                        Ready
-                      </span>
-                    </div>
-                    <div className="mt-6 space-y-3">
-                      {['Resume clarity', 'LinkedIn polish', 'Role-fit story'].map((tag) => (
-                        <div key={tag} className="flex items-center justify-between rounded-2xl bg-[#F8F9FF] px-3 py-2.5 text-sm text-[#475467]">
-                          <span>{tag}</span>
-                          <ArrowRight className="h-4 w-4 text-[#635BFF]" aria-hidden="true" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {visual === "search" && (
-                  <div className="w-full rounded-[26px] border border-[#E7E9EE] bg-white p-5 shadow-sm">
-                    <div className="rounded-2xl border border-[#E7E9EE] bg-[#F8F9FF] p-3">
-                      <div className="flex items-center gap-2 text-[#667085]">
-                        <SearchCheck className="h-4 w-4 text-[#635BFF]" aria-hidden="true" />
-                        <span className="text-sm font-medium">Search criteria</span>
-                      </div>
-                      <div className="mt-4 grid gap-2">
-                        {['Frontend roles', 'Remote', 'Growth teams', 'Bengaluru'].map((entry) => (
-                          <div key={entry} className="rounded-xl bg-white px-3 py-2 text-sm text-[#475467] shadow-sm">
-                            {entry}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-2xl bg-[#EEF2FF] p-3 text-center">
-                        <p className="text-xs uppercase tracking-[0.18em] text-[#4338CA]">Match</p>
-                        <p className="mt-2 text-xl font-bold text-[#111827]">Strong</p>
-                      </div>
-                      <div className="rounded-2xl bg-[#ECFDF5] p-3 text-center">
-                        <p className="text-xs uppercase tracking-[0.18em] text-[#15803D]">Fit</p>
-                        <p className="mt-2 text-xl font-bold text-[#111827]">Relevant</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {visual === "manage" && (
-                  <div className="w-full rounded-[26px] border border-[#E7E9EE] bg-white p-5 shadow-sm">
-                    <div className="space-y-3">
-                      {[
-                        { label: "Applied", tone: "bg-[#EEF2FF] text-[#4338CA]" },
-                        { label: "Follow-up", tone: "bg-[#ECFDF5] text-[#15803D]" },
-                        { label: "Interview", tone: "bg-[#FEE2E2] text-[#B91C1C]" },
-                      ].map((item) => (
-                        <div key={item.label} className="flex items-center justify-between rounded-2xl border border-[#E7E9EE] bg-[#F8F9FF] px-3 py-3">
-                          <div className="flex items-center gap-3">
-                            <div className="h-2.5 w-2.5 rounded-full bg-[#635BFF]" aria-hidden="true" />
-                            <span className="text-sm font-medium text-[#111827]">{item.label}</span>
-                          </div>
-                          <span className={`rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${item.tone}`}>
-                            Active
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {visual === "interview" && (
-                  <div className="w-full rounded-[26px] border border-[#E7E9EE] bg-white p-5 shadow-sm">
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-2xl bg-[#F1F0FF] p-4">
-                        <p className="text-xs uppercase tracking-[0.2em] text-[#635BFF]">Prep</p>
-                        <p className="mt-3 text-lg font-semibold text-[#111827]">Role-specific</p>
-                      </div>
-                      <div className="rounded-2xl bg-[#EEF2FF] p-4">
-                        <p className="text-xs uppercase tracking-[0.2em] text-[#4338CA]">Focus</p>
-                        <p className="mt-3 text-lg font-semibold text-[#111827]">Confidence</p>
-                      </div>
-                    </div>
-                    <div className="mt-4 rounded-2xl border border-[#E7E9EE] bg-[#F8F9FF] p-4">
-                      <div className="flex items-center justify-between text-sm text-[#475467]">
-                        <span>Interview brief</span>
-                        <span className="font-semibold text-[#111827]">Ready</span>
-                      </div>
-                      <div className="mt-3 h-2 rounded-full bg-[#E7E9EE]">
-                        <div className="h-2 w-[82%] rounded-full bg-[#635BFF]" aria-hidden="true" />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </motion.article>
-          ))}
+              <span>Explore Custom Plans</span>
+              <span>&rarr;</span>
+            </a>
+          </motion.div>
         </div>
+
+        {/* Perfectly Balanced 3-Column Grid (3 columns x 2 rows = 6 cards) */}
+        <div className="mt-8 sm:mt-10 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {servicesList.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="group relative flex flex-col justify-between rounded-3xl border border-[#E7E9EE] bg-white p-6 sm:p-7 shadow-xs transition-all duration-300 hover:border-[#635BFF]/50 hover:shadow-xl hover:shadow-[#635BFF]/8 overflow-hidden"
+              >
+                {/* Top Subtle Shimmer Accent Line on Hover */}
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#635BFF] via-[#818CF8] to-[#38BDF8] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div>
+                  {/* Top Row: Icon Container on Left, Step Pill on Right */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5F3FF] border border-[#DDD6FE] text-[#635BFF] shadow-xs transition-all duration-300 group-hover:bg-[#635BFF] group-hover:text-white group-hover:scale-110">
+                      <Icon className="h-6 w-6 transition-transform duration-300" />
+                    </div>
+
+                    <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#F3F4F6] text-[#6B7280] group-hover:bg-[#EEF2FF] group-hover:text-[#635BFF] transition duration-200">
+                      {service.step}
+                    </span>
+                  </div>
+
+                  {/* Title & Description */}
+                  <h3 className="mt-5 text-lg font-bold text-[#111827] group-hover:text-[#635BFF] transition duration-200 leading-snug">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-[#4B5563] leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  {/* Feature Checklist */}
+                  {service.features && service.features.length > 0 && (
+                    <div className="mt-5 pt-4 border-t border-[#F3F4F6] space-y-2">
+                      {service.features.slice(0, 3).map((feat, featIdx) => (
+                        <div key={featIdx} className="flex items-start gap-2.5 text-xs text-[#6B7280]">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-[#635BFF] shrink-0 mt-0.5" />
+                          <span className="leading-snug">{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom Row: Telemetry Tag on Left, Action Link on Right */}
+                <div className="mt-6 pt-4 border-t border-[#F3F4F6] flex items-center justify-between text-[11px] font-mono">
+                  <div className="flex items-center gap-1.5 text-[#9CA3AF]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 group-hover:animate-ping" />
+                    <span>{service.tag}</span>
+                  </div>
+
+                  <a
+                    href="#contact"
+                    className="text-xs font-semibold text-[#635BFF] flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                  >
+                    <span>Get Started</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

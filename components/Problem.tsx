@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, BriefcaseBusiness, MessageSquareText, Search, Target } from "lucide-react";
+import { ArrowDown, BriefcaseBusiness, MessageSquareText, Search, Target, Zap } from "lucide-react";
 
 const flow = ["Job Listings", "Applications", "Silence"];
 const issuePoints = [
@@ -13,24 +13,28 @@ const issuePoints = [
 
 export default function Problem() {
   return (
-    <section id="problem" className="px-4 py-20 sm:py-24">
-      <div className="container">
+    <section id="problem" className="px-4 py-6 sm:py-8 bg-white border-y border-[#EEF1F6]">
+      <div className="container mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mx-auto max-w-4xl text-center"
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#635BFF]">
-            The problem
-          </p>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#111827] sm:text-5xl">
+          <span className="inline-block rounded-full bg-[#FEE2E2] border border-[#FECACA] px-3.5 py-1 text-xs font-semibold text-[#DC2626]">
+            The Challenge
+          </span>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#111827] sm:text-4xl">
             Job hunting became a job of its own.
           </h2>
+          <p className="mt-2 text-xs sm:text-sm text-[#667085]">
+            Why manual job applications lead to burnout, and how Nexera solves it.
+          </p>
         </motion.div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+          {/* Flow visual */}
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -38,82 +42,81 @@ export default function Problem() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex justify-center"
           >
-            <div className="flex flex-col items-center gap-3 rounded-[32px] border border-[#E7E9EE] bg-white/70 px-6 py-8 shadow-[0_18px_45px_rgba(17,24,39,0.03)]">
+            <div className="flex flex-col items-center gap-2 rounded-[28px] border border-[#E7E9EE] bg-[#FBFBFF] p-6 shadow-xs">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#9CA3AF] mb-2">
+                The Frustrating Manual Loop
+              </span>
               {flow.map((step, index) => (
-                <motion.div
-                  key={step}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.45, delay: index * 0.08, ease: "easeOut" }}
-                  className="flex flex-col items-center"
-                >
-                  <div
-                    className={`flex h-16 w-40 items-center justify-center rounded-2xl border text-center text-lg font-semibold ${
+                <div key={step} className="flex flex-col items-center">
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    className={`flex h-14 w-44 items-center justify-center rounded-2xl border text-center text-sm font-bold shadow-xs transition ${
                       index === 0
-                        ? "border-[#E7E9EE] bg-[#F8F9FF] text-[#111827]"
+                        ? "border-[#E7E9EE] bg-white text-[#111827]"
                         : index === 1
-                          ? "border-[#DDE4F0] bg-[#EEF2FF] text-[#111827]"
-                          : "border-[#F1F0FF] bg-[#F1F0FF] text-[#635BFF]"
+                          ? "border-[#FED7AA] bg-[#FFF7ED] text-[#EA580C]"
+                          : "border-[#FECACA] bg-[#FEF2F2] text-[#DC2626]"
                     }`}
                   >
                     {step}
-                  </div>
+                  </motion.div>
                   {index < flow.length - 1 && (
-                    <ArrowDown className="my-1 h-5 w-5 text-[#635BFF]" aria-hidden="true" />
+                    <motion.div
+                      animate={{ y: [0, 3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <ArrowDown className="my-1.5 h-4 w-4 text-[#9CA3AF]" />
+                    </motion.div>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
-            className="space-y-8"
-          >
+          {/* Issue Points Grid */}
+          <div className="space-y-6">
             <motion.p
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              className="text-lg leading-8 text-[#475467]"
+              transition={{ duration: 0.45 }}
+              className="text-sm sm:text-base leading-relaxed text-[#475467]"
             >
-              Applications pile up, resumes get copied, and the search starts to feel like a second full-time job. The problem is not effort — it is lack of structure, clarity and follow-through.
+              Applications pile up, resumes get ignored by automated ATS filters, and the search feels like a second full-time job. The problem is not your effort — it is the lack of a structured, human-managed outreach system.
             </motion.p>
 
             <div className="grid gap-4 sm:grid-cols-2">
               {issuePoints.map(({ icon: Icon, title, text }, index) => (
                 <motion.div
                   key={title}
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.45, delay: index * 0.06, ease: "easeOut" }}
-                  whileHover={{ y: -4 }}
-                  className="rounded-[24px] border border-[#E7E9EE] bg-white/80 p-5 shadow-[0_12px_28px_rgba(17,24,39,0.03)]"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.07 }}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                  className="rounded-2xl border border-[#E7E9EE] bg-white p-5 shadow-xs transition hover:border-[#635BFF] hover:shadow-[0_12px_24px_rgba(99,91,255,0.08)]"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F1F0FF] text-[#635BFF]">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#EEF2FF] text-[#635BFF]">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-[#111827]">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#667085]">{text}</p>
+                  <h3 className="mt-3 text-sm font-bold text-[#111827]">{title}</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-[#667085]">{text}</p>
                 </motion.div>
               ))}
             </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="text-lg font-medium text-[#111827]"
+              viewport={{ once: true }}
+              className="rounded-2xl bg-[#EEF2FF] border border-[#E0E7FF] p-4 flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#1E1B4B]"
             >
-              Nexera brings the structure back: a sharper profile, better job matching, organized applications and a human team to keep the process moving.
-            </motion.p>
-          </motion.div>
+              <Zap className="h-5 w-5 text-[#635BFF] shrink-0 fill-[#635BFF]" />
+              <span>
+                Nexera restores your momentum: tailored ATS keywords, daily submissions, and dedicated support so you can focus entirely on interviews.
+              </span>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

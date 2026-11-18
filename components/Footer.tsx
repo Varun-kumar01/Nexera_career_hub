@@ -14,7 +14,7 @@ const companyLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-[#E7E9EE] bg-white/80">
-      <div className="container py-12">
+      <div className="container py-8">
         <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div>
             <div className="flex items-center gap-3">

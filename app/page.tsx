@@ -1,13 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Problem from "@/components/Problem";
-import Transformation from "@/components/Transformation";
-import HowItWorks from "@/components/HowItWorks";
 import Services from "@/components/Services";
-import Journey from "@/components/Journey";
+import HowItWorks from "@/components/HowItWorks";
+import Trust from "@/components/Trust";
 import Testimonials from "@/components/Testimonials";
-import Audience from "@/components/Audience";
-import WhyNexera from "@/components/WhyNexera";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
@@ -18,14 +14,10 @@ export default function Home() {
     <main className="bg-[#F7F8FC] text-[#111827]">
       <Navbar />
       <Hero />
-      <Problem />
-      <Transformation />
-      <HowItWorks />
       <Services />
-      <Journey />
+      <HowItWorks />
+      <Trust />
       <Testimonials />
-      <Audience />
-      <WhyNexera />
       <Pricing />
       <FAQ />
       <CTA />

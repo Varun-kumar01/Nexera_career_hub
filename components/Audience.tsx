@@ -36,7 +36,7 @@ export default function Audience() {
   const activeAudience = audiences.find((item) => item.label === selected) ?? audiences[0];
 
   return (
-    <section id="who-nexera-is-for" className="px-4 py-20 sm:py-24">
+    <section id="who-nexera-is-for" className="px-4 py-8 sm:py-10">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

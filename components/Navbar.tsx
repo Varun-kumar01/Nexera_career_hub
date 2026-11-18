@@ -166,9 +166,9 @@ export default function Navbar() {
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center rounded-full bg-[#635BFF] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_12px_20px_rgba(99,91,255,0.25)] transition hover:bg-[#4F46E5]"
+            className="inline-flex items-center rounded-full bg-[#635BFF] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(99,91,255,0.28)] transition hover:bg-[#4F46E5] hover:scale-105"
           >
-            Start Your Journey
+            Start Your Journey →
           </a>
         </div>
 

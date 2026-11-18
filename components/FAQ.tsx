@@ -2,9 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const faqs = [
+const defaultFaqs = [
   {
     question: "How does Nexera work?",
     answer: "We start by understanding your target role, background, and preferred locations. Then we help position your profile, support targeted applications, and keep your search organized with clear communication.",
@@ -44,10 +44,23 @@ const faqs = [
 ];
 
 export default function FAQ() {
+  const [faqsList, setFaqsList] = useState(defaultFaqs);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+  // Fetch live FAQs from PostgreSQL database
+  useEffect(() => {
+    fetch("/api/faqs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.faqs) && data.faqs.length > 0) {
+          setFaqsList(data.faqs);
+        }
+      })
+      .catch((err) => console.error("Error loading FAQs from database:", err));
+  }, []);
+
   return (
-    <section id="faq" className="px-4 py-20 sm:py-24">
+    <section id="faq" className="px-4 py-6 sm:py-8">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -65,7 +78,7 @@ export default function FAQ() {
         </motion.div>
 
         <div className="mx-auto mt-12 max-w-4xl space-y-4">
-          {faqs.map((item, index) => {
+          {faqsList.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
